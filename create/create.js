@@ -127,6 +127,21 @@
     icon.classList.remove('activated');
    })
   }
+  validateInput(target){
+   let length = target.value.length;
+   if (length > 0) {
+    //bold
+    let value = ui.valueCheck(bold);
+    //italic
+    let italicValue = ui.valueCheck(italic);
+    //underline
+    let underline = ui.valueCheck(list);
+    ui.formatText(value, italicValue, underline, target);
+   } else {
+    target.classList.remove('underline', 'bold', 'italic');
+    ui.deactivate();
+   }
+  }
  };
 /* ---------- KLASE ---------- */
 
@@ -174,34 +189,10 @@
   }
  });
  taskInput.addEventListener('keyup', ()=>{
-  let length = taskInput.value.length;
-  if(length>0){
-   //bold
-   let value = ui.valueCheck(bold);
-   //italic
-   let italicValue = ui.valueCheck(italic);
-   //underline
-   let underline = ui.valueCheck(list);
-   ui.formatText(value, italicValue, underline, taskInput);
-  } else{
-   taskInput.classList.remove('underline', 'bold', 'italic');
-   ui.deactivate();
-  }
+  ui.validateInput(taskInput);
  });
  solutionInput.addEventListener('keyup', ()=>{
-  let length = solutionInput.value.length;
-  if (length > 0) {
-   //bold
-   let value = ui.valueCheck(bold);
-   //italic
-   let italicValue = ui.valueCheck(italic);
-   //underline
-   let underline = ui.valueCheck(list);
-   ui.formatText(value, italicValue, underline, solutionInput);
-  } else {
-   solutionInput.classList.remove('underline', 'bold', 'italic');
-   ui.deactivate();
-  }
+  ui.validateInput(solutionInput)
  })
  stackInput.addEventListener('click', ()=>{
   ui.deactivate();
