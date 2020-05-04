@@ -127,19 +127,20 @@
     icon.classList.remove('activated');
    })
   }
+  //kada je duzina veca od 0 onda da se primjenjuje formatiranje
   validateInput(target){
    let length = target.value.length;
    if (length > 0) {
     //bold
-    let value = ui.valueCheck(bold);
+    let value = this.valueCheck(bold);
     //italic
-    let italicValue = ui.valueCheck(italic);
+    let italicValue = this.valueCheck(italic);
     //underline
-    let underline = ui.valueCheck(list);
-    ui.formatText(value, italicValue, underline, target);
+    let underline = this.valueCheck(list);
+    this.formatText(value, italicValue, underline, target);
    } else {
     target.classList.remove('underline', 'bold', 'italic');
-    ui.deactivate();
+    this.deactivate();
    }
   }
  };
@@ -183,9 +184,7 @@
    let stackNameValue = stackInput.value;
    let stackTaskValue = taskInput.value;
    let stackSolutionValue = solutionInput.value;
-   console.log(stackNameValue);
-   console.log(stackTaskValue);
-   console.log(stackSolutionValue);
+   
   }
  });
  taskInput.addEventListener('keyup', ()=>{
