@@ -152,17 +152,13 @@
  })
  stackForm.addEventListener("click", event=>{
   event.preventDefault();
-  if (event.target.classList.contains('stackForm_input-task')){
-   ui.disableIcons('false');
-  } else if (event.target.classList.contains('stackForm_input-solution')){
+  if (event.target.classList.contains('stackForm_input-task') || event.target.classList.contains('stackForm_input-solution')){
    ui.disableIcons('false');
   } else if(event.target.classList.contains('stackName')){
    ui.disableIcons('true');
   }
   //point
-  else if(event.target.parentElement.classList.contains('bold')){
-   ui.activate(event.target.parentElement);
-  } else if(event.target.parentElement.classList.contains('italic')){
+  else if (event.target.parentElement.classList.contains('bold') || event.target.parentElement.classList.contains('italic')){
    ui.activate(event.target.parentElement);
   } else if(event.target.classList.contains('list')){
    ui.activate(event.target);
