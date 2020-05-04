@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="../create/create.css">
+ <script src="https://kit.fontawesome.com/e2ef9baa8a.js" crossorigin="anonymous"></script>
+ <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@600&display=swap" rel="stylesheet">
+ <title>Flashcards app</title>
+</head>
+
+<body>
+ <!--Header-->
+ <header class="header">
+  <!--Ime aplikacije-->
+  <div class="header_name">
+   <a href="../index.html" class="appName"><i class="fas fa-arrow-left"></i></a>
+  </div>
+  <!--Ime aplikacije-->
+  <!--Logo aplikacije-->
+  <div class="header_logo">
+   <a href="../create/create.html" class="appLogo">Editor</a>
+  </div>
+  <!--Logo aplikacije-->
+  <!--Meni aplikacije-->
+  <div class="header_menu">
+   <a class="appMenu">menu <span class="openMenu"><i class="fas fa-angle-down down"></i></span></a>
+  </div>
+  <!--Meni aplikacije-->
+ </header>
+ <div class="menu hidemenu">
+  <div class="menu_content">
+   <!--Napravi karticu-->
+   <div class="flashcard_create">
+    <a class="create" href="#"><span class="account_icon"><i class="fas fa-search userIcon"></i></span>search</a>
+   </div>
+   <!--Napravi karticu-->
+   <!--Podesavanja kartice-->
+   <div class=" account_settings">
+     <a class="account" href="#">categories</a>
+   </div>
+   <!--Podesavanja kartice-->
+  </div>
+ </div>
+ <!--Header-->
+ <!--Dodaj Stack-->
+ <div class="stack_container">
+   <!--Stack Forma-->
+   <form class="stackForm">
+     <!--Input za stack Name-->
+   <input type="text" class="stackName" placeholder="stack name"></input>
+    <!--Input za stack Name-->
+    <!--Container za stack formu-->
+   <div class="stackForm_container">
+     <!--Inputi za task i solution-->
+       <input type="text" class="stackForm_input-task" placeholder="task">
+       <input type="text" class="stackForm_input-solution" placeholder="solution">
+     <!--Inputi za task i solution-->
+     <!--Donji dio-->
+       <div class="lowerPart">
+         <!--Dio za formatiranje unesenog teksta-->
+         <button class="lowerPart_formatting">
+           <p class="formatting hide">
+             <!--Ikonice za formatiranje-->
+             <a class="formatting_back back"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
+             <a class="formatting_style bold disabled"><i class="fas fa-bold"></i></a>
+             <a class="formatting_style italic disabled"><i class="fas fa-italic"></i></a>
+            <a class="formatting_style list disabled">underline</a>
+            <!--Ikonice za formatiranje-->
+           </p>
+           <p class="formattingText">formatting</p>
+         </button>
+        <!--Dio za formatiranje unesenog teksta-->
+         <input type="submit" value="+ ADD CARD" class="lowerPart_submit">
+       </div>
+     <!--Donji dio-->
+     </form>
+   <!--Stack Forma-->
+   </div>
+    <!--Container za stack formu-->
+ </div>
+ <!--Dodaj Stack-->
+ <script src="../create/create.js"></script>
+</body>
+
+</html>

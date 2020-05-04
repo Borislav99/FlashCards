@@ -1,0 +1,144 @@
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Baloo Bhaina 2", cursive;
+}
+/* ---------- RESET ---------- */
+/* ---------- HEADER ---------- */
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 4.5rem;
+  background-color: #7e3f8f;
+  margin-bottom: 1rem;
+}
+.header_name,
+.header_logo,
+.header_menu {
+  height: 100%;
+  position: relative;
+}
+.appName,
+.appLogo,
+.appMenu {
+  text-decoration: none;
+  display: inline;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-style: italic;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 1s;
+}
+.appMenu {
+  text-transform: capitalize;
+}
+/*sakrij plavu boju na klik*/
+.appName, .appLogo, .appMenu, .create, .account {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/*sakrij plavu boju na klik*/
+.appName_cards {
+  color: #ff958c;
+}
+/*heading operations*/
+.appName:hover {
+  cursor: pointer;
+  color: #ff958c;
+  letter-spacing: 0.1rem;
+}
+.appName:hover .appName_cards {
+  color: #ffffff;
+}
+/*heading operations*/
+/*logo operations*/
+.appLogo:hover {
+  color: #ff958c;
+  font-size: 1.7rem;
+}
+/*logo operations*/
+/*menu operations*/
+.appMenu:hover {
+  cursor: pointer;
+}
+/*menu operations*/
+/* ---------- HEADER ---------- */
+/* ---------- MENU ---------- */
+.menu {
+  position: absolute;
+  display: block;
+  right: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  margin: 0 auto;
+  text-align: center;
+}
+.showmenu{
+ width: 35.3%;
+ padding-bottom: 1rem;
+}
+.hidemenu {
+ width: 0;
+}
+/* --- Slider menu ---*/
+.menu_content{
+display: grid;
+ text-align: center;
+ border-radius: .5rem;
+ margin-bottom: 1rem;
+padding: .5rem;
+box-shadow: -3px 4px 5px 0px rgba(189,183,189,1);
+width: 80%;
+margin: 0 auto;
+}
+.flashcard_create, .account_settings{
+ margin-bottom: .5rem;
+ text-transform: uppercase;
+ font-size: 1.3rem;
+ border: .5px solid #cccccc;
+ border-radius: .5rem;
+ padding:.1rem;
+ transition: all .3s;
+}
+.flashcard_create:hover, .account_settings:hover{
+ cursor: pointer;
+ background: #7e3f8f;
+}
+.account_settings:hover .userIcon{
+ color: #ff958c;
+}
+.create, .account{
+  text-decoration: none;
+  color: #000000;
+}
+.flashcard_create:hover > .create, .account_settings:hover > .account{
+  color: #ffffff;
+}
+/* --- Slider menu ---*/
+/* ---------- MENU ---------- */
+/* ---------- MEDIA Q ---------- */
+@media screen and (min-width:650px){
+  .menu_content{
+  grid-template-columns: 1fr 1fr;
+ }
+ .flashcard_create, .account_settings{
+  margin-right: .5rem;
+ }
+}
+/* ---------- MEDIA Q ---------- */

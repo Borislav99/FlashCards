@@ -1,0 +1,241 @@
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Baloo Bhaina 2", cursive;
+      -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/* ---------- RESET ---------- */
+/* ---------- HEADER ---------- */
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 4.5rem;
+  background-color: #7e3f8f;
+  margin-bottom: 1rem;
+}
+.header_name,
+.header_logo,
+.header_menu {
+  height: 100%;
+  position: relative;
+}
+.appName,
+.appLogo,
+.appMenu {
+ text-decoration: none;
+  display: inline;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-style: italic;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 1s;
+}
+.appLogo{
+ font-style: normal;
+ text-transform: uppercase;
+}
+.appMenu {
+  text-transform: capitalize;
+}
+/*sakrij plavu boju na klik*/
+.appName, .appLogo, .appMenu, .create, .account {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/*sakrij plavu boju na klik*/
+/*heading operations*/
+.appName:hover {
+  cursor: pointer;
+  color: #ff958c;
+  letter-spacing: 0.1rem;
+}
+.appName:hover {
+  color:#ff958c;
+}
+/*heading operations*/
+/*logo operations*/
+.appLogo:hover {
+  letter-spacing: .2rem;
+  color: #ff958c;
+}
+/*logo operations*/
+/*menu operations*/
+.appMenu:hover {
+  cursor: pointer;
+}
+/*menu operations*/
+/* ---------- HEADER ---------- */
+/* ---------- MENU ---------- */
+.menu {
+  position: absolute;
+  display: block;
+  right: 0;
+  overflow: auto;
+  transition: all 0.3s;
+  margin: 0 auto;
+  text-align: center;
+}
+.showmenu{
+ width: 35.3%;
+ padding-bottom: 1rem;
+}
+.hidemenu {
+ width: 0;
+}
+/* --- Slider menu ---*/
+.menu_content{
+  background-color: #ffffff;
+display: grid;
+ text-align: center;
+ border-radius: .5rem;
+ margin-bottom: 1rem;
+padding: .5rem;
+box-shadow: -3px 4px 5px 0px rgba(189,183,189,1);
+width: 80%;
+margin: 0 auto;
+}
+.flashcard_create, .account_settings{
+ margin-bottom: .5rem;
+ text-transform: uppercase;
+ font-size: 1.3rem;
+ border: .5px solid #cccccc;
+ border-radius: .5rem;
+ padding:.1rem;
+ transition: all .3s;
+}
+.flashcard_create:hover, .account_settings:hover{
+ cursor: pointer;
+ background: #7e3f8f;
+}
+.flashcard_create:hover .userIcon{
+ color: #ff958c;
+}
+.create, .account{
+  text-decoration: none;
+  color: #000000;
+}
+.flashcard_create:hover > .create, .account_settings:hover > .account{
+  color: #ffffff;
+}
+.userIcon{
+ margin-right: .5rem;
+}
+/* --- Slider menu ---*/
+/* ---------- MENU ---------- */
+/* ---------- STACK ---------- */
+.stack_container{
+  display: inline-block;
+  margin-left: .5rem;
+}
+.stackName{
+  text-transform: capitalize;
+  color: #7C7C7C;
+  font-size: 2rem;
+  letter-spacing: .2rem;
+  border: none;
+  outline: none;
+}
+.stackForm_container{
+  border: 2px solid #7C7C7C;
+  border-radius: 1rem;
+  padding: .5rem;
+}
+.stackForm_input-task, .stackForm_input-solution{
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #7c7c7c;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+}
+.stackForm_input-solution{
+  border-bottom: none;
+}
+.lowerPart_formatting, .lowerPart_submit{
+  padding: .5rem;
+  border-radius: 1rem;
+  border: 1px solid #000000;
+  outline: none;
+  text-transform: uppercase;
+  background-color: #ffffff;
+}
+.lowerPart_formatting:hover, .lowerPart_submit:hover{
+  background-color: #7e3f8f;
+  color: #ffffff;
+  cursor: pointer;
+  letter-spacing: .1rem;
+}
+.lowerPart_formatting{
+  position: relative;
+}
+.formatting_back{
+  padding-right: 1rem;
+}
+.formatting_style{
+  border-radius: .5rem;
+  padding: .5rem;
+  transition: all .3s;
+}
+.list{
+  padding-right: 0px;
+}
+/* ---------- STACK ---------- */
+/* ---------- MEDIA Q ---------- */
+@media screen and (min-width:650px){
+  .menu_content{
+  grid-template-columns: 1fr 1fr;
+ }
+ .flashcard_create, .account_settings{
+  margin-right: .5rem;
+ }
+}
+/* ---------- MEDIA Q ---------- */
+/* ---------- OPERATIONS ---------- */
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.disabled{
+  opacity: 0.2;
+  pointer-events: none;
+}
+.bold{
+  font-weight: 999;
+}
+.italic{
+  font-style: italic;
+}
+.underline{
+  text-decoration: underline;
+}
+.activated{
+  padding: .3rem;
+  background-color: black;
+  color: white;
+  border-radius: .5rem;
+}
+/* ---------- OPERATIONS ---------- */
