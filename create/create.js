@@ -143,7 +143,78 @@
     this.deactivate();
    }
   }
+ /* !!!!!!! RAD !!!!!!! */
+ //funkcija koja pravi stack, ukoliko se stack vec nalazi unutar localStoraga onda samo prikaze taj stack o kome se radi
+ createStack(stackName){
+  let value = this.checkForStack(stackName);
+  //napravi novi stack
+  if(value===false||value===undefined){
+   let id = this.getID();
+   let object = [{
+    name: stackName,
+    id
+   }];
+   let list;
+   if (localStorage.getItem('stack')) {
+    list = JSON.parse(localStorage.getItem('stack'))
+   } else {
+    list = [];
+   };
+   list.push(object);
+   localStorage.setItem('stack', JSON.stringify(list));
+  } 
+  //prikazi upisani stack
+  else {
+   let list = JSON.parse(localStorage.getItem('stack'));
+   let existingStack = list.find(item=>{
+    if(item[0].name===stackName){
+     return item;
+    }
+   })[0];
+   console.log(existingStack);
+  }
+ }
+ //funkcija koja vraca vrijednost na osnovu koje znamo da li se stack pravi ili ne
+ checkForStack(stackName){
+  if(localStorage.getItem('stack')){
+   let list = JSON.parse(localStorage.getItem('stack'));
+   let value = list.some(item => {
+    if(item[0].name===stackName){
+     return true;
+    } else {
+     return false;
+    }
+   });
+   return value;
+  }
+ }
+ //dobijanje ida za pravljenje stacka
+ getID(){
+  let id;
+  if(localStorage.getItem('stack')){
+   let list = JSON.parse(localStorage.getItem('stack'));
+   let allIDs = [];
+   list.forEach(item => {
+    allIDs.push(item[0].id);
+   })
+   let max = Math.max(...allIDs);
+   id = max + 1;
+  }
+  else {
+   id = 0;
+  };
+  if(id===-Infinity){
+   id = 0;
+  }
+  return id;
+ }
+ /* !!!!!!! RAD !!!!!!! */
  };
+/* !!!!!!! RAD !!!!!!! */
+ class Storage{
+
+ }
+/* !!!!!!! RAD !!!!!!! */
 /* ---------- KLASE ---------- */
 
 /* ---------- VARIJABLE ---------- */
@@ -184,7 +255,8 @@
    let stackNameValue = stackInput.value;
    let stackTaskValue = taskInput.value;
    let stackSolutionValue = solutionInput.value;
-   
+   //funkcija koja sluzi da se pravi stack
+   ui.createStack(stackNameValue);
   }
  });
  taskInput.addEventListener('keyup', ()=>{
