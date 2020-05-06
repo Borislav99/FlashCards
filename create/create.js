@@ -157,15 +157,28 @@
       }
     }
     //funkcija koja pravi stack, ukoliko se stack vec nalazi unutar localStoraga onda samo prikaze taj stack o kome se radi
-    createStack(stackName) {
+    createStack(stackName, task, solution) {
+      //dobijanje vrijednosti inputa i stilova
+      let taskValue = task.value;
+      let solutionValue = solution.value;
+      let taskStyles = task.getAttribute('class');
+      let solutionStyles = solution.getAttribute('class');
+      let taskSolutionObject = {
+        taskValue,
+        solutionValue,
+        taskStyles,
+        solutionStyles,
+        id:0
+      };
+      //dobijanje vrijednosti inputa i stilova
       let value = Storage.checkForStack(stackName);
       //napravi novi stack
       if (value === false || value === undefined) {
-        Storage.addNewStack(stackName);
+        Storage.addNewStack(stackName, taskSolutionObject);
       }
       //prikazi upisani stack
       else {
-        Storage.addToExistingStack(stackName);
+        Storage.addToExistingStack(stackName, taskSolutionObject);
       }
     }
   }
@@ -183,13 +196,14 @@
     static checkForStack(stackName) {
       if (localStorage.getItem("stack")) {
         let list = Storage.getAllInfo();
-        let value = list.some((item) => {
-          if (item[0].name === stackName) {
-            return true;
-          } else {
-            return false;
-          }
-        });
+          let value = list.some(someItem => {
+            if (someItem.name === stackName) {
+              return true;
+            } else {
+              return false;
+            }
+          });
+        
         return value;
       }
     }
@@ -200,7 +214,7 @@
         let list = Storage.getAllInfo();
         let allIDs = [];
         list.forEach((item) => {
-          allIDs.push(item[0].id);
+          allIDs.push(item.id);
         });
         let max = Math.max(...allIDs);
         id = max + 1;
@@ -213,14 +227,15 @@
       return id;
     }
     //funkcija koja pravi novi stack
-    static addNewStack(stackName) {
+    static addNewStack(stackName, taskSolutionObject) {
       let id = Storage.getID();
-      let object = [
+      let object = 
         {
           name: stackName,
           id,
-        },
-      ];
+          tasks: [taskSolutionObject]
+        }
+      ;
       let list;
       if (localStorage.getItem("stack")) {
         list = Storage.getAllInfo();
@@ -231,14 +246,28 @@
       localStorage.setItem("stack", JSON.stringify(list));
     }
     //funkcija koja dodaje u postojeci stack
-    static addToExistingStack(stackName) {
+    static addToExistingStack(stackName, taskSolutionObject) {
       let list = Storage.getAllInfo();
       let existingStack = list.find((item) => {
-        if (item[0].name === stackName) {
+        if (item.name === stackName) {
           return item;
         }
-      })[0];
-      console.log(existingStack);
+      });
+      //finding id
+      let allTasksOfExistingStack = existingStack.tasks;      
+      let allIDs = [];
+      allTasksOfExistingStack.forEach(item=>{
+        allIDs.push(parseInt(item.id));        
+      });
+      let id = Math.max(...allIDs) +1;
+      taskSolutionObject.id = id;
+      allTasksOfExistingStack.push(taskSolutionObject);
+      existingStack.tasks = allTasksOfExistingStack;
+      let filter = list.filter(item=>{
+        return item.id!==existingStack.id;
+      });
+      let updatedList = filter.concat(existingStack);
+      localStorage.setItem('stack', JSON.stringify(updatedList))
     }
   }
 
@@ -298,10 +327,8 @@
     //submit
     else if (event.target.classList.contains("lowerPart_submit")) {
       let stackNameValue = stackInput.value;
-      let stackTaskValue = taskInput.value;
-      let stackSolutionValue = solutionInput.value;
       //funkcija koja sluzi da se pravi stack
-      ui.createStack(stackNameValue);
+      ui.createStack(stackNameValue, taskInput, solutionInput);
     }
   });
   //event da pocne formatiranje ako je duzina inputa veca od 0 za task
