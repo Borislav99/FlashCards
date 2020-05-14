@@ -160,17 +160,94 @@
     createStack(stackName, task, solution) {
       let taskSolution = Storage.createTaskSolution(task, solution);
       let value = Storage.checkForStack(stackName);
-      //napravi novi stack
-      if (value === false || value === undefined) {
-        Storage.addNewStack(stackName, taskSolution);
+      //validacija inputa
+      let validator = this.validateAll(stackName, task.value, solution.value);
+      let validatorLength = validator.length;
+      //prikazati feedback
+      if (validatorLength > 0) {
+        this.showFeedback(validator);
+        this.clearFields();
       }
-      //prikazi upisani stack
+      //napraviti stack
       else {
-        Storage.addToExistingStack(stackName, taskSolution);
+        //napravi novi stack
+        if (value === false || value === undefined) {
+          Storage.addNewStack(stackName, taskSolution);
+        }
+        //prikazi upisani stack
+        else {
+          Storage.addToExistingStack(stackName, taskSolution);
+        }
+        this.clearFields();
       }
     }
+    //funkcija koja radi validaciju inputa, ukoliko jedan od inputa nije ispunjen ne moze se nastaviti dalje
+    validateAll(stackName, task, solution) {
+      let stackNameValue = this.validateInstance(stackName);
+      let taskValue = this.validateInstance(task);
+      let solutionValue = this.validateInstance(solution);
+      let validatorObject = {
+        stackNameValue,
+        taskValue,
+        solutionValue,
+      };
+      let validatorArr = Object.values(validatorObject);
+      let result = [];
+      validatorArr.forEach((item, index) => {
+        if (item === false) {
+          result.push(`Please enter value for ${index}`);
+        }
+      });
+      return result;
+    }
+    //pojedinacna validacija
+    validateInstance(value) {
+      if (value.length === 0 || value === "") {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    showFeedback(validator) {
+      let validatorTextArr = this.getValidatorText(validator);
+      feedback.classList.remove("hide");
+      feedback.classList.add("show");
+      submitBtn.classList.add("disabled");
+      validatorTextArr.forEach((item) => {
+        feedback.innerHTML += `
+          <p>${item}</p>
+          `;
+      });
+      setTimeout(() => {
+        feedback.classList.add("hide");
+        feedback.classList.remove("show");
+        submitBtn.classList.remove("disabled");
+        feedback.innerHTML = "";
+      }, 3000);
+    }
+    getValidatorText(validator) {
+      let filteredValidator = validator.map((item) => {
+        if (item === "Please enter value for 0") {
+          return "Please enter value for Stack Name";
+        }
+        if (item === "Please enter value for 1") {
+          return "Please enter value for Task";
+        }
+        if (item === "Please enter value for 2") {
+          return "Please enter value for Solution";
+        }
+      });
+      return filteredValidator;
+    }
+    clearFields() {
+      stackInput.value = "";
+      taskInput.value = "";
+      solutionInput.value = "";
+      this.validateInput(taskInput);
+      this.validateInput(solutionInput);
+      this.showHideFormatting("false");
+    }
   }
-
   /* ---------- KLASA UI ---------- */
 
   /* ---------- KLASA STORAGE ---------- */
@@ -181,17 +258,17 @@
       return JSON.parse(localStorage.getItem("stack"));
     }
     //funkcija koja pravi objekat za task i solution
-    static createTaskSolution(task, solution){
+    static createTaskSolution(task, solution) {
       let taskValue = task.value;
       let solutionValue = solution.value;
-      let taskStyles = task.getAttribute('class');
-      let solutionStyles = solution.getAttribute('class');
+      let taskStyles = task.getAttribute("class");
+      let solutionStyles = solution.getAttribute("class");
       let taskSolutionObject = {
         taskValue,
         solutionValue,
         taskStyles,
         solutionStyles,
-        id: 0
+        id: 0,
       };
       return taskSolutionObject;
     }
@@ -199,14 +276,14 @@
     static checkForStack(stackName) {
       if (localStorage.getItem("stack")) {
         let list = Storage.getAllInfo();
-          let value = list.some(someItem => {
-            if (someItem.name === stackName) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        
+        let value = list.some((someItem) => {
+          if (someItem.name === stackName) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+
         return value;
       }
     }
@@ -232,13 +309,11 @@
     //funkcija koja pravi novi stack
     static addNewStack(stackName, taskSolution) {
       let id = Storage.getID();
-      let object = 
-        {
-          name: stackName,
-          id,
-          tasks: [taskSolution]
-        }
-      ;
+      let object = {
+        name: stackName,
+        id,
+        tasks: [taskSolution],
+      };
       let list;
       if (localStorage.getItem("stack")) {
         list = Storage.getAllInfo();
@@ -258,27 +333,39 @@
       });
       let allTasks = existingStack.tasks;
       let id = Storage.findTaskSolutionID(allTasks);
-      Storage.updateExistingStack(id, taskSolution, allTasks, existingStack, list)
+      Storage.updateExistingStack(
+        id,
+        taskSolution,
+        allTasks,
+        existingStack,
+        list
+      );
     }
     //funkcija za pronalazenje id od postojecih stackova
-    static findTaskSolutionID(allTasks){
+    static findTaskSolutionID(allTasks) {
       let allIDs = [];
-      allTasks.forEach(item => {
+      allTasks.forEach((item) => {
         allIDs.push(parseInt(item.id));
       });
       let id = Math.max(...allIDs) + 1;
       return id;
     }
     //funkcija za update postojecih stackova
-    static updateExistingStack(id, taskSolution, allTasks, existingStack, list){
+    static updateExistingStack(
+      id,
+      taskSolution,
+      allTasks,
+      existingStack,
+      list
+    ) {
       taskSolution.id = id;
       allTasks.push(taskSolution);
       existingStack.tasks = allTasks;
-      let filter = list.filter(item => {
+      let filter = list.filter((item) => {
         return item.id !== existingStack.id;
       });
       let updatedList = filter.concat(existingStack);
-      localStorage.setItem('stack', JSON.stringify(updatedList))
+      localStorage.setItem("stack", JSON.stringify(updatedList));
     }
   }
 
@@ -289,6 +376,7 @@
   /* ------------------------------ VARIJABLE ------------------------------ */
 
   let formattingBtn = document.querySelector(".lowerPart_formatting");
+  let submitBtn = document.querySelector(".lowerPart_submit");
   let stackForm = document.querySelector(".stackForm");
   let stackInput = document.querySelector(".stackName");
   let taskInput = document.querySelector(".stackForm_input-task");
@@ -296,6 +384,7 @@
   let bold = document.querySelector(".bold");
   let italic = document.querySelector(".italic");
   let list = document.querySelector(".list");
+  let feedback = document.querySelector(".feedback");
   let ui = new UI();
 
   /* ------------------------------ VARIJABLE ------------------------------ */
@@ -319,7 +408,7 @@
       event.target.classList.contains("stackForm_input-solution")
     ) {
       ui.disableIcons("false");
-    } 
+    }
     //ukoliko pritisnes na stack name da se disabluju ikonice
     else if (event.target.classList.contains("stackName")) {
       ui.disableIcons("true");
@@ -330,7 +419,7 @@
       event.target.parentElement.classList.contains("italic")
     ) {
       ui.activate(event.target.parentElement);
-    } 
+    }
     //prikazi da je pritisnuto za underline
     else if (event.target.classList.contains("list")) {
       ui.activate(event.target);
