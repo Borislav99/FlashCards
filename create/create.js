@@ -210,6 +210,7 @@
     }
     showFeedback(validator) {
       let validatorTextArr = this.getValidatorText(validator);
+      this.validateFields(validatorTextArr);
       feedback.classList.remove("hide");
       feedback.classList.add("show");
       submitBtn.classList.add("disabled");
@@ -238,6 +239,9 @@
         }
       });
       return filteredValidator;
+    }
+    validateFields(validator){
+      
     }
     clearFields() {
       stackInput.value = "";
