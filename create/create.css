@@ -250,7 +250,7 @@ margin: 0 auto;
   border-radius: .5rem;
 }
 .validateThis{
-  border: 1px solid red;
+  border: 1px solid #E85F5C;
   width: 100%;
   border-radius: .5rem;
   animation: feedbackAnimate 0.3s;

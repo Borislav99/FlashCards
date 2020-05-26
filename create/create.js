@@ -3,7 +3,6 @@
   /* ------------------------------ KLASE ------------------------------ */
 
   /* ---------- KLASA UI ---------- */
-
   class UI {
     constructor() {
       this.formatting = document.querySelector(".formatting");

@@ -44,7 +44,7 @@ body {
   text-transform: capitalize;
 }
 /*sakrij plavu boju na klik*/
-.appName, .appLogo, .appMenu, .create, .account {
+.appName, .appLogo, .appMenu, .create, .account, .singleStack_button{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -81,6 +81,7 @@ body {
 /* ---------- HEADER ---------- */
 /* ---------- MENU ---------- */
 .menu {
+  background-color: #ffffff;
   position: absolute;
   display: block;
   right: 0;
@@ -106,8 +107,9 @@ padding: .5rem;
 box-shadow: -3px 4px 5px 0px rgba(189,183,189,1);
 width: 80%;
 margin: 0 auto;
+ z-index: 999;
 }
-.flashcard_create, .account_settings{
+.flashcard_create, .account_settings, .singleStack_button{
  margin-bottom: .5rem;
  text-transform: uppercase;
  font-size: 1.3rem;
@@ -115,8 +117,9 @@ margin: 0 auto;
  border-radius: .5rem;
  padding:.1rem;
  transition: all .3s;
+ z-index: 998;
 }
-.flashcard_create:hover, .account_settings:hover{
+.flashcard_create:hover, .account_settings:hover, .singleStack_button:hover{
  cursor: pointer;
  background: #7e3f8f;
 }
@@ -132,6 +135,39 @@ margin: 0 auto;
 }
 /* --- Slider menu ---*/
 /* ---------- MENU ---------- */
+
+/* ---------- STACK AREA ---------- */
+.stackArea{
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.singleStack{
+  border: 1px solid #000000;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #000000;
+  padding-bottom: .5rem;
+}
+.singleStack_name{
+  text-transform: uppercase;
+}
+.taskNumber{
+  color: #E85F5C;
+}
+.singleStack_button{
+text-decoration: none;
+background-color: #ffffff;
+font-weight: bold;
+outline: none;
+color: #000000;
+}
+.singleStack_button:hover{
+  color: #ffffff;
+}
+/* ---------- STACK AREA ---------- */
+
 /* ---------- MEDIA Q ---------- */
 @media screen and (min-width:650px){
   .menu_content{
@@ -140,5 +176,26 @@ margin: 0 auto;
  .flashcard_create, .account_settings{
   margin-right: .5rem;
  }
+ .stackArea{
+  grid-template-columns: 1fr 1fr;
+}
+.singleStack_name{
+  text-align: center;
+}
+.singleStack_taskNumber{
+  text-align: center;
+}
+.singleStack_buttons{
+  text-align: center;
+}
+.singleStack{
+  margin-bottom: 1rem;
+  margin-right: .5rem;
+}
+}
+@media screen and (min-width:950px){
+ .stackArea{
+  grid-template-columns: 1fr 1fr 1fr;
+}
 }
 /* ---------- MEDIA Q ---------- */
