@@ -96,7 +96,7 @@ class Storage{
     let specificStack = list.filter(function (item) {
       return item.id === id
     })[0];
-    specificStack.name = name;
+    specificStack.name = name.toLowerCase();
     Storage.replaceStack(id, specificStack)
   }
   static replaceStack(id, stack){
