@@ -44,7 +44,7 @@ body {
   text-transform: capitalize;
 }
 /*sakrij plavu boju na klik*/
-.appName, .appLogo, .appMenu, .create, .account, .singleStack_button{
+.appName, .appLogo, .appMenu, .create, .account, .singleStack_button, .close_container,  .modal_btn{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -167,6 +167,90 @@ color: #000000;
   color: #ffffff;
 }
 /* ---------- STACK AREA ---------- */
+/* ---------- MODAL ---------- */
+.modal{
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /*border: 1px solid red;*/
+  width: 95%;
+  height: 95%;
+  background-color: #7e3f8f;
+  transition: all .3s;
+}
+.modal_container{
+  position: relative;
+  height: 100%;
+  border: 1px solid #000000;
+  box-shadow: 0 .5rem 1rem #000000;
+}
+.close_container{
+  position: absolute;
+  /*border: 1px solid red;*/
+  top: 1rem;
+  right: 1rem;
+}
+.close{
+  font-size: 5rem;
+  transition: all .3s;
+}
+.close:hover{
+  color: red;
+  cursor: pointer;
+}
+.modal_details{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: .5rem;
+  background-color: #ffffff;
+  padding: 1rem;
+}
+.modal_name{
+  font-size: 1.5rem;
+}
+.modal_input{
+  border-radius: .5rem;
+  outline: none;
+  margin-bottom: 1rem;
+  padding: .5rem;
+}
+.modal_btn{
+  border: 1px solid #000000;
+  border-radius: .5rem;
+  padding: .5rem;
+  background-color: #ffffff;
+  transition: all .3s;
+  outline: none;
+}
+.modal_btn:hover{
+  background-color: red;
+  color: #ffffff;
+  cursor: pointer;
+}
+/* ---------- MODAL ---------- */
+
+/* ---------- OPERATIONS ---------- */
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+  animation: showAnimation 1s;
+}
+@keyframes showAnimation{
+  0%{
+    transform: translate(-3000px, -50%);
+  }
+  100%{
+    transform: translate(-50%, -50%);
+  }
+}
+/* ---------- OPERATIONS ---------- */
 
 /* ---------- MEDIA Q ---------- */
 @media screen and (min-width:650px){

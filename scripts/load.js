@@ -22,6 +22,20 @@
     this.deleteFromDOM(target);
     this.deleteFromLS(id);
   }
+  editStack(id){
+    let stackName = Storage.getStackName(id);
+    modalInput.value = stackName;
+    this.openCloseModal('open');
+  }
+   openCloseModal(value){
+    if(value==='open'){
+      modal.classList.remove('hide');
+      modal.classList.add('show');
+    } else if(value==='close'){
+      modal.classList.add('hide');
+      modal.classList.remove('show');
+    }
+  }
   deleteFromDOM(target){
     stackArea.removeChild(target);
   }
@@ -31,7 +45,7 @@
     Storage.updateStorage(filteredStorage)
   }
  }
- /* ---------- KLASA UI ---------- */
+/* ---------- KLASA UI ---------- */
 
 /* ---------- KLASA STORAGE ---------- */
 class Storage{
@@ -48,6 +62,21 @@ class Storage{
   static updateStorage(storage){
     localStorage.setItem('stack', JSON.stringify(storage))
   }
+  static getStackName(id) {
+    let list = Storage.getStorage();
+    let specificStack = list.filter(function(item){
+      return item.id === id
+    });
+    let stackName = Storage.capitalize(specificStack[0].name)
+    return stackName;
+  }
+  static capitalize(str) {
+    str = str.split(" ");
+    for (let i = 0, x = str.length; i < x; i++) {
+      str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(" ");
+  }
 }
 /* ---------- KLASA STORAGE ---------- */
 
@@ -56,6 +85,9 @@ class Storage{
  /* ---------- VARIJABLE ---------- */
  let storageItems = JSON.parse(localStorage.getItem('stack'));
  let stackArea = document.querySelector(".stackArea");
+ let modal = document.querySelector('.modal');
+ let closeModalBtn = document.querySelector('.close');
+let modalInput = document.querySelector('.modal_input');
  let ui = new UI();
  /* ---------- VARIJABLE ---------- */
  /* ---------- EVENTI ---------- */
@@ -72,7 +104,13 @@ class Storage{
      let id = parseInt(event.target.parentElement.parentElement.children[0].dataset.id);
      let target = event.target.parentElement.parentElement;
      ui.deleteStack(target, id)
+   } else if(event.target.classList.contains('btnEdit')){
+     let id = parseInt(event.target.parentElement.parentElement.children[0].dataset.id);
+     ui.editStack(id)
    }
+ })
+ closeModalBtn.addEventListener('click', ()=>{
+   ui.openCloseModal('close');
  })
  /* ---------- EVENTI ---------- */
 })()
