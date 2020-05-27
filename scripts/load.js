@@ -24,8 +24,16 @@
   }
   editStack(id){
     let stackName = Storage.getStackName(id);
+    this.setDataID(true, id);
     modalInput.value = stackName;
     this.openCloseModal('open');
+  }
+  setDataID(value, id){
+    if(value===true){
+      modalDetails.setAttribute('data-id', id);
+    } else if(value===false){
+      modalDetails.setAttribute('data-id', "");
+    }
   }
    openCloseModal(value){
     if(value==='open'){
@@ -34,6 +42,7 @@
     } else if(value==='close'){
       modal.classList.add('hide');
       modal.classList.remove('show');
+      this.setDataID(false)
     }
   }
   deleteFromDOM(target){
@@ -43,6 +52,11 @@
     let storage = Storage.getStorage();
     let filteredStorage = Storage.filterStorage(storage, id);
     Storage.updateStorage(filteredStorage)
+  }
+  editModal(name, id){
+    Storage.findStack(id, name);
+    this.openCloseModal('close');
+    location.reload();
   }
  }
 /* ---------- KLASA UI ---------- */
@@ -77,17 +91,33 @@ class Storage{
     }
     return str.join(" ");
   }
+  static findStack(id, name){
+    let list = Storage.getStorage();
+    let specificStack = list.filter(function (item) {
+      return item.id === id
+    })[0];
+    specificStack.name = name;
+    Storage.replaceStack(id, specificStack)
+  }
+  static replaceStack(id, stack){
+    let list = Storage.getStorage();
+    let filter = Storage.filterStorage(list, id);
+    filter.push(stack)
+    localStorage.setItem('stack', JSON.stringify(filter))
+  }
 }
 /* ---------- KLASA STORAGE ---------- */
 
  /* ------------------------------ KLASE ------------------------------ */
 
  /* ---------- VARIJABLE ---------- */
- let storageItems = JSON.parse(localStorage.getItem('stack'));
- let stackArea = document.querySelector(".stackArea");
- let modal = document.querySelector('.modal');
- let closeModalBtn = document.querySelector('.close');
+let storageItems = JSON.parse(localStorage.getItem('stack'));
+let stackArea = document.querySelector(".stackArea");
+let modal = document.querySelector('.modal');
+let closeModalBtn = document.querySelector('.close');
 let modalInput = document.querySelector('.modal_input');
+let modalDetails = document.querySelector('.modal_details');
+let editModal = document.querySelector(".modal_btn");
  let ui = new UI();
  /* ---------- VARIJABLE ---------- */
  /* ---------- EVENTI ---------- */
@@ -111,6 +141,11 @@ let modalInput = document.querySelector('.modal_input');
  })
  closeModalBtn.addEventListener('click', ()=>{
    ui.openCloseModal('close');
+ })
+ editModal.addEventListener('click', event =>{
+   let stackName = event.target.parentElement.children[1].value;
+   let stackID = parseInt(event.target.parentElement.dataset.id);
+   ui.editModal(stackName, stackID);
  })
  /* ---------- EVENTI ---------- */
 })()
