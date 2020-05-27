@@ -255,6 +255,10 @@ margin: 0 auto;
   border-radius: .5rem;
   animation: feedbackAnimate 0.3s;
 }
+.positiveFeedback{
+  display: block;
+  background-color: #6A994E;
+}
 @keyframes feedbackAnimate{
   0%{
     transform: translateX(-.5rem);

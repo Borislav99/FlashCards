@@ -97,13 +97,14 @@
       let validatorLength = validator.length;
       //prikazati feedback
       if (validatorLength > 0) {
-        this.showFeedback(validator);
+        this.showFeedback('negative', validator);
         this.clearFields();
       }
       //napraviti stack
       else {
         //napravi novi stack
         if (value === false || value === undefined) {
+          this.showFeedback('new');
           Storage.addNewStack(stackName, taskSolution);
         }
         //prikazi upisani stack
@@ -140,23 +141,51 @@
         return true;
       }
     }
-    showFeedback(validator) {
-      let validatorTextArr = this.getValidatorText(validator);
-      this.validateFields(validatorTextArr);
-      feedback.classList.remove("hide");
-      feedback.classList.add("show");
-      submitBtn.classList.add("disabled");
-      validatorTextArr.forEach((item) => {
-        feedback.innerHTML += `
+    showFeedback(value, validator) {
+      if(value==='negative'){
+        let validatorTextArr = this.getValidatorText(validator);
+        this.validateFields(validatorTextArr);
+        feedback.classList.remove("hide");
+        feedback.classList.add("show");
+        submitBtn.classList.add("disabled");
+        validatorTextArr.forEach((item) => {
+          feedback.innerHTML += `
           <p>${item}</p>
           `;
-      });
-      setTimeout(() => {
-        feedback.classList.add("hide");
-        feedback.classList.remove("show");
-        submitBtn.classList.remove("disabled");
-        feedback.innerHTML = "";
-      }, 3000);
+        });
+        setTimeout(() => {
+          feedback.classList.add("hide");
+          feedback.classList.remove("show");
+          submitBtn.classList.remove("disabled");
+          feedback.innerHTML = "";
+        }, 3000);
+      } else if(value==='new'){
+        feedback.classList.remove("hide");
+        feedback.classList.add("positiveFeedback");
+        submitBtn.classList.add("disabled");
+        feedback.innerHTML = `
+        <p>New Stack Added</p>
+        `;
+        setTimeout(() => {
+          feedback.classList.add("hide");
+          feedback.classList.remove("positiveFeedback");
+          submitBtn.classList.remove("disabled");
+          feedback.innerHTML = "";
+        }, 3000);
+      } else if(value==='update'){
+        feedback.classList.remove("hide");
+        feedback.classList.add("positiveFeedback");
+        submitBtn.classList.add("disabled");
+        feedback.innerHTML = `
+        <p>${validator.toUpperCase()} stack updated</p>
+        `;
+        setTimeout(() => {
+          feedback.classList.add("hide");
+          feedback.classList.remove("positiveFeedback");
+          submitBtn.classList.remove("disabled");
+          feedback.innerHTML = "";
+        }, 3000);
+      }
     }
     getValidatorText(validator) {
       let filteredValidator = validator.map((item) => {
@@ -201,6 +230,9 @@
   /* ---------- KLASA STORAGE ---------- */
 
   class Storage {
+    constructor(){
+      let ui = new UI();
+    }
     //prikazi informacije vezena za stack u localstoragu
     static getAllInfo() {
       return JSON.parse(localStorage.getItem("stack"));
@@ -279,6 +311,7 @@
           return item;
         }
       });
+      ui.showFeedback('update', existingStack.name);
       let allTasks = existingStack.tasks;
       let id = Storage.findTaskSolutionID(allTasks);
       Storage.updateExistingStack(
