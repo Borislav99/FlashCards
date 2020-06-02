@@ -58,6 +58,9 @@
     this.openCloseModal('close');
     location.reload();
   }
+  updateTasks(id){
+    localStorage.setItem('stackID', JSON.stringify(id));
+  }
  }
 /* ---------- KLASA UI ---------- */
 
@@ -137,6 +140,11 @@ let editModal = document.querySelector(".modal_btn");
    } else if(event.target.classList.contains('btnEdit')){
      let id = parseInt(event.target.parentElement.parentElement.children[0].dataset.id);
      ui.editStack(id)
+   }
+   else if(event.target.classList.contains('btnStudy')){
+     let id = parseInt(event.target.parentElement.parentElement.children[0].dataset.id);
+  ui.updateTasks(id);
+  window.location.replace("../task_list/tasks.html");
    }
  })
  closeModalBtn.addEventListener('click', ()=>{

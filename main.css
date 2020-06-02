@@ -44,7 +44,7 @@ body {
   text-transform: capitalize;
 }
 /*sakrij plavu boju na klik*/
-.appName, .appLogo, .appMenu, .create, .account, .singleStack_button, .close_container,  .modal_btn{
+.appName, .appLogo, .appMenu, .create, .account, .singleStack_button, .close_container,  .modal_btn, .singleTask_button{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -109,7 +109,7 @@ width: 80%;
 margin: 0 auto;
  z-index: 999;
 }
-.flashcard_create, .account_settings, .singleStack_button{
+.flashcard_create, .account_settings, .singleStack_button, .singleTask_button{
  margin-bottom: .5rem;
  text-transform: uppercase;
  font-size: 1.3rem;
@@ -119,7 +119,7 @@ margin: 0 auto;
  transition: all .3s;
  z-index: 998;
 }
-.flashcard_create:hover, .account_settings:hover, .singleStack_button:hover{
+.flashcard_create:hover, .account_settings:hover, .singleStack_button:hover, .singleTask_button:hover{
  cursor: pointer;
  background: #7e3f8f;
 }
@@ -137,12 +137,12 @@ margin: 0 auto;
 /* ---------- MENU ---------- */
 
 /* ---------- STACK AREA ---------- */
-.stackArea{
+.stackArea, .taskArea{
   padding: 1rem;
   display: grid;
   grid-template-columns: 1fr;
 }
-.singleStack{
+.singleStack, .singleTask{
   border: 1px solid #000000;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -150,20 +150,20 @@ margin: 0 auto;
   color: #000000;
   padding: .5rem;
 }
-.singleStack_name{
+.singleStack_name, .singleTask_name{
   text-transform: uppercase;
 }
-.taskNumber{
+.taskNumber, .singleTask_taskNumber{
   color: #E85F5C;
 }
-.singleStack_button{
+.singleStack_button, .singleTask_button{
 text-decoration: none;
 background-color: #ffffff;
 font-weight: bold;
 outline: none;
 color: #000000;
 }
-.singleStack_button:hover{
+.singleStack_button:hover, .singleTask_button:hover{
   color: #ffffff;
 }
 /* ---------- STACK AREA ---------- */
@@ -260,25 +260,25 @@ color: #000000;
  .flashcard_create, .account_settings{
   margin-right: .5rem;
  }
- .stackArea{
+ .stackArea, .taskArea{
   grid-template-columns: 1fr 1fr;
 }
-.singleStack_name{
+.singleStack_name, .singleTask_name{
   text-align: center;
 }
-.singleStack_taskNumber{
+.singleStack_taskNumber, .singleTask_taskNumber{
   text-align: center;
 }
-.singleStack_buttons{
+.singleStack_buttons, .singleTask_buttons{
   text-align: center;
 }
-.singleStack{
+.singleStack, .singleTask{
   margin-bottom: 1rem;
   margin-right: .5rem;
 }
 }
 @media screen and (min-width:950px){
- .stackArea{
+ .stackArea, .taskArea{
   grid-template-columns: 1fr 1fr 1fr;
 }
 }
